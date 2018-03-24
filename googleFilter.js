@@ -7,7 +7,7 @@ function deleteFromList() {
         .querySelectorAll('li')
         .forEach((li) => {
             const text = li.textContent.toLowerCase()
-            if (text.match(xList)) li.innerHTML = ''
+            if (text.match(xList)) li.parentNode.removeChild(li);
         })
 }
 

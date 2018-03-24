@@ -27,7 +27,7 @@ function deleteFilterFromElList(ul, filters = xList) {
         const text = li.textContent.toLowerCase()
         if (text.match(filters)) {
             console.log([li, li.innerHTML]);
-            li.innerHTML = ''
+            li.parentNode.removeChild(li);
         }
     })
 }
