@@ -1,24 +1,15 @@
-
-//deletes any li with text.content that matches xList
+//sets interval to delete any li with text that matches xlist filters
 xList = ['CyberCoder']
-xList = xList.map((el)=>el.toLowerCase())
+xList = xList.map((el) => el.toLowerCase())
 
-function deleteFromListItems(){
+function deleteFromList() {
     document.body
-    .querySelectorAll('li')
-    .forEach( (li)=>{
-        const text = li.textContent.toLowerCase()
-        if(includesAny(text,xList)) li.innerHTML=''
-    })
+        .querySelectorAll('li')
+        .forEach((li) => {
+            const text = li.textContent.toLowerCase()
+            if (text.match(xList)) li.innerHTML = ''
+        })
 }
 
-function includesAny(string, list){
-    for(let filter of list){
-        if (string.includes(filter)){
-            return true;
-        }
-    }
-    return false;
-}
 
-setInterval(deleteFromListItems,5000)
+setInterval(deleteFromList, 5000)
