@@ -1,16 +1,17 @@
 //makes observer that deletes new elements added to dom that match xlist filters
-let xList = ['CyberCoder']
-xList = xList.map((el) => el.toLowerCase())
+let xList = ['CyberCoder','jobspring']
+xList = xList.map((el)=>el.toLowerCase())
 
 const targetNode = document.body
-const config = {
-    childList: true,
-    subtree: true
-};
-const deleteFromMutation = function (mutationsList) {
-    mutationsList.forEach((mutation) => {
-        deleteFilterFromElList(mutation.addedNodes)
-    })
+const config = {childList:true,subtree: true};
+const deleteFromMutation = function(mutationsList) {
+    mutationsList.forEach((mutation)=> {
+        mutation.addedNodes.forEach(node=>{
+            if (node.querySelectorAll){
+                deleteFilterFromElList(node.querySelectorAll('li'))
+            }
+        })
+    })          
 };
 
 // Create an observer instance linked to the callback function which deletes 
@@ -22,12 +23,14 @@ deleteFilterFromElList(targetNode.querySelectorAll('li'));
 // Start observing the target node for configured mutations
 observer.observe(targetNode, config);
 
-function deleteFilterFromElList(ul, filters = xList) {
-    ul.forEach((li) => {
+function deleteFilterFromElList(ul,filters = xList){
+    ul.forEach( (li)=>{
         const text = li.textContent.toLowerCase()
-        if (text.match(filters)) {
-            console.log([li, li.innerHTML]);
+        const match = text.match(filters)
+        if (match) {
+            console.log({match,li});
             li.parentNode.removeChild(li);
         }
     })
 }
+
