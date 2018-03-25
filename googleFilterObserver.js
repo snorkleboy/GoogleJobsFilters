@@ -1,5 +1,5 @@
 //makes observer that deletes new elements added to dom that match xlist filters
-let xList = ['CyberCoder']
+let xList = ['CyberCoder', 'jobspring']
 xList = xList.map((el)=>el.toLowerCase())
 
 const targetNode = document.body
@@ -17,7 +17,7 @@ function GetLiAndFilter(mutation){
 function filterFromElList(ul,filters = xList){
     ul.forEach( (li)=>{
         const text = li.textContent.toLowerCase()
-        const match = text.match(filters)
+        const match = text.match(...filters)
         if (match) {
             console.log({match,li});
             li.parentNode.removeChild(li);

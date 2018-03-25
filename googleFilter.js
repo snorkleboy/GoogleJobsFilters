@@ -9,7 +9,7 @@ function deleteFromList() {
 function deleteFilterFromElList(ul, filters = xList) {
     ul.forEach((li) => {
         const text = li.textContent.toLowerCase()
-        const match = text.match(filters)
+        const match = text.match(...filters)
         if (match) {
             console.log({
                 match,
