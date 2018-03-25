@@ -3,13 +3,20 @@ xList = ['CyberCoder']
 xList = xList.map((el) => el.toLowerCase())
 
 function deleteFromList() {
-    document.body
-        .querySelectorAll('li')
-        .forEach((li) => {
-            const text = li.textContent.toLowerCase()
-            if (text.match(xList)) li.parentNode.removeChild(li);
-        })
+    deleteFilterFromElList(document.body.querySelectorAll('li'))
 }
 
-
+function deleteFilterFromElList(ul, filters = xList) {
+    ul.forEach((li) => {
+        const text = li.textContent.toLowerCase()
+        const match = text.match(filters)
+        if (match) {
+            console.log({
+                match,
+                li
+            });
+            li.parentNode.removeChild(li);
+        }
+    })
+}
 setInterval(deleteFromList, 5000)
