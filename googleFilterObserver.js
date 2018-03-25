@@ -1,5 +1,5 @@
 //makes observer that deletes new elements added to dom that match xlist filters
-let xList = ['CyberCoder', 'jobspring']
+let xList = ['CyberCoder', 'jobspring','Hired']
 xList = xList.map((el)=>el.toLowerCase())
 
 const targetNode = document.body
@@ -7,13 +7,14 @@ const targetNode = document.body
 // just immediate children
 const config = {childList:true,subtree: true};
 // this is a callback for the observer, which will be passed in a list of mutations. every 
-//mutation has a type, and if it is a childlist mutation is will have removed/added nodes
+//mutation has a type, and if it is a childlist mutation is will have removed/added nodes.
 // this callback checks added nodes text for any mention of xList words and deletes them. 
 const deleteFromMutation = function(mutationsList) {
     mutationsList.forEach((mutation)=> GetLiAndFilter(mutation))          
 };
 function GetLiAndFilter(mutation){
     mutation.addedNodes.forEach(node=>{
+        //script nodes have querySelectorAll undefined, which throws an 'not function error' when called. 
         if (node.querySelectorAll){
             filterFromElList(node.querySelectorAll('li'))
         }
@@ -22,8 +23,7 @@ function GetLiAndFilter(mutation){
 function filterFromElList(ul,filters = xList){
     ul.forEach( (li)=>{
         const text = li.textContent.toLowerCase()
-        const match = text.match(...filters)
-
+        const match = text.match(filters.join('|'))
         if (match) {
             console.log({match,li});
             li.parentNode.removeChild(li);
@@ -39,5 +39,4 @@ const observer = new MutationObserver(deleteFromMutation);
 filterFromElList(targetNode.querySelectorAll('li'));
 // Start observing the target node for configured mutations
 observer.observe(targetNode, config);
-
 
