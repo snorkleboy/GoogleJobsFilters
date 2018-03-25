@@ -1,12 +1,13 @@
-//makes observer that deletes new elements added to dom that match xlist filters
-let xList = ['CyberCoder', 'jobspring','Hired']
-xList = xList.map((el)=>el.toLowerCase())
+//makes observer that deletes new elements added to dom that match xlist filters, also does initial sweep of all LI's 
+let xList = ['CyberCoder', 'jobspring','we work remotely','hired', 'tandem recruiting group']
+xList = xList.map((filter)=>filter.toLowerCase())
 
 const targetNode = document.body
+//config obj for observer element
 // subtree true means that it will do deep check of childList change, instead of 
 // just immediate children
 const config = {childList:true,subtree: true};
-// this is a callback for the observer, which will be passed in a list of mutations. every 
+// deleteFromMutation is a callback for the observer, which will be passed in a list of mutations. every 
 //mutation has a type, and if it is a childlist mutation is will have removed/added nodes.
 // this callback checks added nodes text for any mention of xList words and deletes them. 
 const deleteFromMutation = function(mutationsList) {
