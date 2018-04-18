@@ -1,5 +1,5 @@
 //makes observer that deletes new elements added to dom that match xlist filters, also does initial sweep of all LI's 
-let xList = ['CyberCoder', 'jobspring','we work remotely','hired', 'tandem recruiting group']
+let xList = ['oracle','creative circle','workbridge','laowaicareer','CyberCoder', 'jobspring','we work remotely','hired', 'tandem recruiting group']
 xList = xList.map((filter)=>filter.toLowerCase())
 
 const targetNode = document.body
@@ -26,7 +26,7 @@ function filterFromElList(ul,filters = xList){
         const text = li.textContent.toLowerCase()
         const match = text.match(filters.join('|'))
         if (match) {
-            console.log({match,li});
+            console.log(match,li);
             li.parentNode.removeChild(li);
         }
     })
@@ -40,4 +40,3 @@ const observer = new MutationObserver(deleteFromMutation);
 filterFromElList(targetNode.querySelectorAll('li'));
 // Start observing the target node for configured mutations
 observer.observe(targetNode, config);
-
